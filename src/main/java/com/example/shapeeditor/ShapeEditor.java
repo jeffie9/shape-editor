@@ -1,11 +1,17 @@
 package com.example.shapeeditor;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import javafx.application.Application;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
+import javafx.scene.control.Labeled;
+import javafx.scene.input.MouseDragEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
@@ -16,8 +22,14 @@ public class ShapeEditor extends Application {
     AnchorPane editorPanel;
     @FXML
     Pane userInputCanvas;
+    @FXML
+    Label leftStatusLabel;
+    @FXML
+    Label rightStatusLabel;
+
     Pane activeLayer;
     AbstractTool activeTool;
+    Map<String, AbstractTool> tools;
 
     @Override
     public void start(Stage primaryStage) throws Exception {
@@ -39,17 +51,19 @@ public class ShapeEditor extends Application {
         activeLayer = new Pane();
         editorPanel.getChildren().add(activeLayer);
         userInputCanvas.toFront();
-        activeTool = new RectangleTool(this);
+        tools = new HashMap<>();
+        tools.put("Line", new LineTool(this));
+        tools.put("Rectangle", new RectangleTool(this));
+        tools.put("Ellipse", new EllipseTool(this));
+        tools.put("Poly Line", new PolyLineTool(this));
+        tools.put("Polygon", new PolygonTool(this));
+        tools.put("Arc", new ArcTool(this));
+        activeTool = tools.get("Line");
     }
 
     public void onPickTool(ActionEvent event) {
-        System.out.println(event);
-        Button source = Button.class.cast(event.getSource());
-        System.out.println(source.getText());
-        switch (source.getText()) {
-        default:
-            break;
-        }
+        Labeled source = Labeled.class.cast(event.getSource());
+        activeTool = tools.get(source.getText());
     }
 
     public void onEditorMouseClicked(MouseEvent event) {
@@ -66,6 +80,13 @@ public class ShapeEditor extends Application {
     }
     public void onEditorMouseReleased(MouseEvent event) {
         activeTool.onMouseReleased(event);
+    }
+    public void onEditorDragDetected(MouseEvent event) {
+        System.out.println(event);
+        //userInputCanvas.startFullDrag();
+    }
+    public void onEditorMouseDragReleased(MouseDragEvent event) {
+        System.out.println(event);
     }
 
 }

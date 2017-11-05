@@ -12,11 +12,6 @@ public class LineTool extends AbstractTool {
     }
 
     @Override
-    public void onMouseClicked(MouseEvent event) {
-        
-    }
-
-    @Override
     public void onMouseDragged(MouseEvent event) {
         shape.setEndX(event.getX());
         shape.setEndY(event.getY());
@@ -32,11 +27,6 @@ public class LineTool extends AbstractTool {
         shape.setStroke(Color.BLACK);
         controller.userInputCanvas.getChildren().clear();
         controller.userInputCanvas.getChildren().add(shape);
-    }
-
-    @Override
-    public void onMouseMoved(MouseEvent event) {
-        
     }
 
     @Override
