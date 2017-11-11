@@ -8,7 +8,6 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.Labeled;
 import javafx.scene.input.MouseDragEvent;
@@ -52,6 +51,7 @@ public class ShapeEditor extends Application {
         editorPanel.getChildren().add(activeLayer);
         userInputCanvas.toFront();
         tools = new HashMap<>();
+        tools.put("Select", new SelectTool(this));
         tools.put("Line", new LineTool(this));
         tools.put("Rectangle", new RectangleTool(this));
         tools.put("Ellipse", new EllipseTool(this));

@@ -53,6 +53,7 @@
     </MenuBar>
       <ToolBar prefHeight="40.0" prefWidth="200.0">
         <items>
+            <Button mnemonicParsing="false" onAction="#onPickTool" text="Select" />
             <Button mnemonicParsing="false" onAction="#onPickTool" text="Line" />
             <Button mnemonicParsing="false" onAction="#onPickTool" text="Rectangle" />
             <Button mnemonicParsing="false" onAction="#onPickTool" text="Ellipse" />
